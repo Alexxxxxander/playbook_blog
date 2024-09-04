@@ -20,8 +20,8 @@ class Post
         $query = "INSERT INTO " . $this->table_name . " SET Name=:name, Text=:text, Author_id=:author_id";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":name", $this->name);
-        $stmt->bindParam(":text", $this->text);
+        $stmt->bindParam(":name", $this->name, \PDO::PARAM_STR);
+        $stmt->bindParam(":text", $this->text, \PDO::PARAM_STR);
         $stmt->bindParam(":author_id", $this->author_id);
 
         if ($stmt->execute()) {
@@ -43,6 +43,7 @@ class Post
 
     public  function  search($search){
         $query = "SELECT Id, Name, Text FROM Post WHERE Name LIKE :search OR Text LIKE :search";
+        // asd; DROP DATABASE Posts; --
         $stmt = $this->conn->prepare($query);
 
         $searchTerm = "%$search%";

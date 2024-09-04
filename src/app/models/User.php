@@ -21,7 +21,7 @@ class User
         $query = "INSERT INTO " . $this->table_name . " SET Login=:login, Password=:password";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":login", $this->login);
+        $stmt->bindParam(":login", $this->login,\PDO::PARAM_STR);
         $stmt->bindParam(":password", $this->password);
 
         if ($stmt->execute()) {
@@ -35,7 +35,7 @@ class User
         $query = "SELECT Id, Password FROM " . $this->table_name . " WHERE Login = :login";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":login", $this->login);
+        $stmt->bindParam(":login", $this->login, \PDO::PARAM_STR);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
